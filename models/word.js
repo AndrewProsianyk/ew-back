@@ -12,11 +12,11 @@ const wordSchema = new Schema({
         required: [true, "Required field!"],
         // match: "/^[а-щА-ЩЬьЮюЯяЇїІіЄєҐґ]+$/"
     }
-})
+}, { versionKey: false, timestamps: true })
 
 const joiSchema = Joi.object({
-    eng: Joi.string().min(1).required(),
-    ua: Joi.string().min(1).required()
+    eng: Joi.string().min(1).required().pattern(/^[A-Za-z]+$/),
+    ua: Joi.string().min(1).required().pattern(/^[а-щА-ЩЬьЮюЯяЇїІіЄєҐґ]+$/)
 })
 // .pattern(/^[A-Za-z]+$/),
 // .pattern(/^[а-щА-ЩЬьЮюЯяЇїІіЄєҐґ]+$/)

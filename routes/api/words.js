@@ -1,34 +1,18 @@
 const express = require("express");
-const { Word } = require('../../models')
 const router = express.Router();
+const { joiSchema } = require('../../models')
+const validation = require('../../middlewares')
 
-router.get('/flashcards', async (req, res, next) => {
-    try {
-        const flashcards = await Word.find({})
-        res.status(200).json({
-            status: "success",
-            code: 200,
-            data: {
-                flashcards
-            }
-        })
-    } catch (error) {
-        console.log(error.message)
-    }
-})
-router.post('/flashcards', async (req, res, next) => {
-    try {
-        const theme = req.body
-        await Word.create(theme)
-        res.status(201).json({
-            status: "success",
-            code: 201,
-            data: {
-                theme
-            }
-        })
-    } catch (error) {
-        console.log(error.message)
-    }
-})
+const { words: ctrl } = require('../../controllers/words')
+
+router.get('/flashcards', ctrl.getAllWords)
+
+router.post('/flashcards', validation(joiSchema), ctrl.addWord)
+
+router.get('/flashcards/:id', ctrl.findWordById)
+
+router.put('/flashcards/:id', ctrl.updateWord)
+
+router.delete('/flashcards/:id', ctrl.deleteWord)
+
 module.exports = router;
