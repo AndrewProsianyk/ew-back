@@ -1,9 +1,9 @@
-const { Word } = require('../../models')
+const { Word } = require('../models')
 
 const getAllWords = async (req, res, next) => {
     try {
-        const flashcards = await Word.find({})
-        console.log(flashcards)
+        const { _id } = req.user
+        const flashcards = await Word.find({ owner: _id }).populate('owner', 'email')
         res.status(200).json({
             status: "success",
             code: 200,
@@ -16,15 +16,15 @@ const getAllWords = async (req, res, next) => {
     }
 }
 
-const addWord = async (req, res, next) => {
+const addWord = async (req, res) => {
     try {
-        const theme = req.body
-        await Word.create(theme)
+        const newWord = { ...req.body, owner: req.user._id }
+        const result = await Word.create(newWord)
         res.status(201).json({
             status: "success",
             code: 201,
             data: {
-                theme
+                result
             }
         })
     } catch (error) {

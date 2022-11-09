@@ -1,7 +1,7 @@
 const { Word } = require('./word')
-const { joiSchema } = require('./word')
+const { User } = require('./user')
 
 module.exports = {
     Word,
-    joiSchema
+    User
 }

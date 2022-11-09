@@ -1,18 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const { joiSchema } = require('../../models')
-const validation = require('../../middlewares')
+const { joiSchema } = require('../../models/word')
+const { validation, authenticate } = require('../../middlewares')
 
-const { words: ctrl } = require('../../controllers/words')
+const { words: ctrl } = require('../../controllers')
 
-router.get('/flashcards', ctrl.getAllWords)
+router.get('/', authenticate, ctrl.getAllWords)
 
-router.post('/flashcards', validation(joiSchema), ctrl.addWord)
+router.post('/', authenticate, validation(joiSchema), ctrl.addWord)
 
-router.get('/flashcards/:id', ctrl.findWordById)
+router.get('/:id', ctrl.findWordById)
 
-router.put('/flashcards/:id', ctrl.updateWord)
+router.put('/:id', ctrl.updateWord)
 
-router.delete('/flashcards/:id', ctrl.deleteWord)
+router.delete('/:id', ctrl.deleteWord)
 
 module.exports = router;
