@@ -33,44 +33,44 @@ const addTheme = async (req, res, next) => {
     }
 }
 
-const updateTheme = async (req, res, next) => {
-    try {
-        const { id } = req.params
-        const theme = await Theme.findByIdAndUpdate(id, req.body, { new: true })
+// const updateTheme = async (req, res, next) => {
+//     try {
+//         const { id } = req.params
+//         const theme = await Theme.findByIdAndUpdate(id, req.body, { new: true })
 
-        res.json({
-            status: "success",
-            code: 200,
-            data: {
-                theme
-            }
-        })
-    } catch (error) {
-        next(error)
-    }
-}
+//         res.json({
+//             status: "success",
+//             code: 200,
+//             data: {
+//                 theme
+//             }
+//         })
+//     } catch (error) {
+//         next(error)
+//     }
+// }
 
-const deleteTheme = async (req, res, next,) => {
-    try {
-        const { id } = req.params
-        const theme = await Theme.findByIdAndDelete(id)
+// const deleteTheme = async (req, res, next,) => {
+//     try {
+//         const { id } = req.params
+//         const theme = await Theme.findByIdAndDelete(id)
 
-        res.json({
-            status: "success",
-            code: 200,
-            data: {
-                theme
-            }
-        })
-    } catch (error) {
-        next(error)
-    }
-}
+//         res.json({
+//             status: "success",
+//             code: 200,
+//             data: {
+//                 theme
+//             }
+//         })
+//     } catch (error) {
+//         next(error)
+//     }
+// }
 
 
 module.exports = {
     getAllThemes,
     addTheme,
-    updateTheme,
-    deleteTheme
+    // updateTheme,
+    // deleteTheme
 }

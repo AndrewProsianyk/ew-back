@@ -9,8 +9,8 @@ router.get('/', authenticate, ctrl.getAllThemes)
 
 router.post('/', authenticate, validation(joiSchema), ctrl.addTheme)
 
-router.put('/:themeId', ctrl.updateTheme)
+// router.put('/:themeId', ctrl.updateTheme)
 
-router.delete('/:themeId', ctrl.deleteTheme)
+// router.delete('/:themeId', ctrl.deleteTheme)
 
 module.exports = router;

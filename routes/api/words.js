@@ -10,10 +10,10 @@ router.get('/:themeId', authenticate, ctrl.getThemeWords)
 router.post('/:themeId', authenticate, ctrl.addWord)
 // router.post('/', authenticate, validation(joiSchema), ctrl.addWord)
 
-router.get('/:wordId', ctrl.findWordById)
+// router.get('/:wordId', ctrl.findWordById)
 
-router.put('/:wordId', ctrl.updateWord)
+// router.put('/:wordId', ctrl.updateWord)
 
-router.delete('/:wordId', ctrl.deleteWord)
+// router.delete('/:wordId', ctrl.deleteWord)
 
 module.exports = router;
