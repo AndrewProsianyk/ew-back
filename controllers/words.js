@@ -1,9 +1,24 @@
 const { Word } = require('../models')
+const { Theme } = require('../models')
 
-const getAllWords = async (req, res, next) => {
+const getThemeWords = async (req, res, next) => {
     try {
         const { _id } = req.user
-        const flashcards = await Word.find({ owner: _id }).populate('owner', 'email')
+        const words = await Word.find({ theme: req.params.themeId, owner: _id })
+        res.status(200).json({
+            status: "success",
+            code: 200,
+            data: {
+                words
+            }
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+const getAllWords = async (req, res, next) => {
+    try {
+        const flashcards = await Word.find({ owner: _id, theme: req.params.themeId })
         res.status(200).json({
             status: "success",
             code: 200,
@@ -16,9 +31,9 @@ const getAllWords = async (req, res, next) => {
     }
 }
 
-const addWord = async (req, res) => {
+const addWord = async (req, res, next) => {
     try {
-        const newWord = { ...req.body, owner: req.user._id }
+        const newWord = { ...req.body, theme: req.params.themeId, owner: req.user._id }
         const result = await Word.create(newWord)
         res.status(201).json({
             status: "success",
@@ -84,6 +99,7 @@ const deleteWord = async (req, res, next,) => {
 
 
 module.exports = {
+    getThemeWords,
     getAllWords,
     addWord,
     findWordById,

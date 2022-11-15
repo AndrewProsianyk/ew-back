@@ -10,6 +10,10 @@ const wordSchema = new Schema({
         type: String,
         required: [true, "Required field!"]
     },
+    theme: {
+        type: Schema.Types.ObjectId,
+        ref: 'Theme'
+    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'user'

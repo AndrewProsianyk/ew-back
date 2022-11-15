@@ -3,6 +3,7 @@ const cors = require('cors')
 
 const authRouter = require('./routes/api/auth')
 const wordsRouter = require('./routes/api/words')
+const themesRouter = require('./routes/api/themes')
 
 const app = express()
 
@@ -10,7 +11,8 @@ app.use(cors())
 app.use(express.json())
 
 app.use("/api/auth", authRouter)
-app.use("/api/flashcards", wordsRouter);
+app.use("/api/words", wordsRouter);
+app.use("/api/themes", themesRouter);
 
 app.use((req, res) => {
     res.status(404).json({ message: 'Not found' })

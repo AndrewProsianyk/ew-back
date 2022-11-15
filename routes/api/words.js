@@ -5,14 +5,15 @@ const { validation, authenticate } = require('../../middlewares')
 
 const { words: ctrl } = require('../../controllers')
 
-router.get('/', authenticate, ctrl.getAllWords)
+router.get('/:themeId', authenticate, ctrl.getThemeWords)
 
-router.post('/', authenticate, validation(joiSchema), ctrl.addWord)
+router.post('/:themeId', authenticate, ctrl.addWord)
+// router.post('/', authenticate, validation(joiSchema), ctrl.addWord)
 
-router.get('/:id', ctrl.findWordById)
+router.get('/:wordId', ctrl.findWordById)
 
-router.put('/:id', ctrl.updateWord)
+router.put('/:wordId', ctrl.updateWord)
 
-router.delete('/:id', ctrl.deleteWord)
+router.delete('/:wordId', ctrl.deleteWord)
 
 module.exports = router;
