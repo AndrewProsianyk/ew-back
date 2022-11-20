@@ -20,7 +20,7 @@
     "dev": "nodemon ./bin/server.js",
     "lint": "eslint **/*.js",
     "lint:fix": "eslint --fix **/*.js",
-    "build": "echo success"
+    "build": "echo sucess"
   },
   "repository": {
     "type": "git",
