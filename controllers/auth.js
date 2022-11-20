@@ -50,11 +50,17 @@ const login = async (req, res) => {
 
     await User.findByIdAndUpdate(user._id, { token })
 
+    const loggedUser = {
+        name: user.name,
+        email: user.email
+    }
+
     res.json({
         status: 'success',
         code: 200,
         data: {
-            token
+            token,
+            loggedUser
         }
     })
 }

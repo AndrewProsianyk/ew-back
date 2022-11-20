@@ -4,7 +4,8 @@ const Joi = require('joi')
 const userSchema = Schema({
     name: {
         type: String,
-        minlength: 2
+        minlength: 2,
+        default: 'User'
     },
     email: {
         type: String,
@@ -23,7 +24,7 @@ const userSchema = Schema({
 
 
 const joiSchema = Joi.object({
-    // name: Joi.string().required(),
+    name: Joi.string(),
     email: Joi.string().required(),
     password: Joi.string().required()
 })
