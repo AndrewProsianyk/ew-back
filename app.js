@@ -13,6 +13,9 @@ app.use(express.json())
 app.use("/api/auth", authRouter)
 app.use("/api/words", wordsRouter);
 app.use("/api/themes", themesRouter);
+app.use("/api/smth", () => {
+
+});
 
 app.use((req, res) => {
     res.status(404).json({ message: 'Not found' })
