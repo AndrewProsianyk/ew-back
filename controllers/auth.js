@@ -15,7 +15,7 @@ const registration = async (req, res) => {
         return
     }
     const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
-    await User.create({
+    const newUser = await User.create({
         name,
         email,
         password: hashedPassword
@@ -24,7 +24,8 @@ const registration = async (req, res) => {
     res.status(201).json({
         status: 'success',
         code: 201,
-        message: 'User is successfully registered.'
+        message: 'User is successfully registered.',
+        newUser
     })
 }
 
@@ -75,8 +76,24 @@ const logout = async (req, res) => {
     })
 }
 
+const currentUser = async (req, res) => {
+    const { _id } = req.user
+    const user = await User.findById(_id)
+    if (!user) {
+        return
+    }
+    res.status(200).json({
+        status: "success",
+        code: 200,
+        data: {
+            user
+        }
+    })
+}
+
 module.exports = {
     registration,
     login,
-    logout
+    logout,
+    currentUser
 }

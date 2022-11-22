@@ -9,6 +9,8 @@ router.post('/register', validation(joiSchema), ctrl.registration)
 
 router.post('/login', validation(joiSchema), ctrl.login)
 
-router.get('/logout', authenticate, ctrl.logout)
+router.post('/logout', authenticate, ctrl.logout)
+
+router.get('/currentUser', authenticate, ctrl.currentUser)
 
 module.exports = router
