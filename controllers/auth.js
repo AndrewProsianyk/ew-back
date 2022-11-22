@@ -31,39 +31,52 @@ const registration = async (req, res) => {
 
 const login = async (req, res) => {
     const { email, password } = req.body
-    const user = await User.findOne({ email })
-    const isPasswordCorrect = bcrypt.compareSync(password, user.password)
+    try {
+        const user = await User.findOne({ email })
 
-    if (!user || !isPasswordCorrect) {
-        res.status(401).json({
-            status: 'error',
-            code: 401,
-            message: 'Wrong email or password.'
-        })
-        return
-    }
-
-    const payload = {
-        id: user._id
-    }
-
-    const token = jwt.sign(payload, SECRET_KEY)
-
-    await User.findByIdAndUpdate(user._id, { token })
-
-    const loggedUser = {
-        name: user.name,
-        email: user.email
-    }
-
-    res.json({
-        status: 'success',
-        code: 200,
-        data: {
-            token,
-            loggedUser
+        if (!user) {
+            res.status(401).json({
+                status: 'error',
+                code: 401,
+                message: 'Wrong email or password.'
+            })
+            return
         }
-    })
+        const isPasswordCorrect = bcrypt.compareSync(password, user.password)
+
+        if (!isPasswordCorrect) {
+            res.status(401).json({
+                status: 'error',
+                code: 401,
+                message: 'Wrong email or password.'
+            })
+            return
+        }
+
+        const payload = {
+            id: user._id
+        }
+
+        const token = jwt.sign(payload, SECRET_KEY)
+
+        await User.findByIdAndUpdate(user._id, { token })
+
+        const loggedUser = {
+            name: user.name,
+            email: user.email
+        }
+
+        res.json({
+            status: 'success',
+            code: 200,
+            data: {
+                token,
+                loggedUser
+            }
+        })
+    } catch (error) {
+        console.log(error.message)
+    }
 }
 
 const logout = async (req, res) => {
