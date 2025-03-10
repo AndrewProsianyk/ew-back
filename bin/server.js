@@ -26,6 +26,10 @@ io.on("connection", (socket) => {
     console.log(`Користувач приєднався до чату ${chatId}`);
   });
 
+  socket.onAny((event, ...args) => {
+    console.log(`🔥 Отримано подію: ${event}`, args);
+  });
+
   socket.on("sendMessage", ({ chatId, text, sender }) => {
     const message = { chatId, text, sender };
     console.log("📩 Отримано повідомлення:", text);
