@@ -28,7 +28,7 @@ io.on("connection", (socket) => {
 
   socket.on("sendMessage", ({ chatId, text, sender }) => {
     const message = { chatId, text, sender };
-
+    console.log("📩 Отримано повідомлення:", text);
     // Відправляємо повідомлення тільки учасникам цього чату
     io.to(chatId).emit("receiveMessage", message);
   });
