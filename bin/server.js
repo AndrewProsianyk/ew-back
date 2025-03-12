@@ -1,4 +1,5 @@
 const http = require("http");
+import { v4 as uuidv4 } from "uuid";
 const mongoose = require("mongoose");
 require("dotenv").config();
 //march 2025
@@ -31,9 +32,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("sendMessage", ({ chatId, text, sender }) => {
-    const message = { chatId, text, sender };
+    const message = { id: uuidv4(), chatId, text, sender };
+
     console.log("📩 Отримано повідомлення:", text);
-    // Відправляємо повідомлення тільки учасникам цього чату
     io.to(chatId).emit("receiveMessage", message);
   });
 
