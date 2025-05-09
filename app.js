@@ -4,6 +4,7 @@ const cors = require("cors");
 const authRouter = require("./routes/api/auth");
 const wordsRouter = require("./routes/api/words");
 const themesRouter = require("./routes/api/themes");
+const carRouter = require("./routes/api/carRoutes");
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api/words", wordsRouter);
 app.use("/api/themes", themesRouter);
+app.use("/api/cars", carRouter);
 app.post("/test", (req, res) => {
   console.log("Request received from frontend:", req.body);
   res.json({

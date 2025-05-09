@@ -15,7 +15,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "*", // У продакшені заміни на свій фронтенд-домен
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
@@ -48,19 +48,6 @@ io.on("connection", (socket) => {
     console.log("Користувач відключився");
   });
 });
-
-// io.on("connection", (socket) => {
-//   console.log("Користувач підключився:", socket.id);
-
-//   socket.on("sendMessage", (message) => {
-//     console.log("Отримано повідомлення:", message);
-//     io.emit("receiveMessage", message); // Розсилаємо повідомлення всім клієнтам
-//   });
-
-//   socket.on("disconnect", () => {
-//     console.log("Користувач відключився:", socket.id);
-//   });
-// });
 
 mongoose
   .connect(DB_HOST)
